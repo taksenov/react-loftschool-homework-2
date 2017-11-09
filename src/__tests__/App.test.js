@@ -13,7 +13,7 @@ describe('App component', () => {
     it('contain input', () => {
       expect(wrapper.find('input')).toHaveLength(1);
     });
-  });
+  }); // Done
 
   describe('check presence of instance methods', () => {
     const wrapper = shallow(<App />);
@@ -24,7 +24,7 @@ describe('App component', () => {
     it('contain instance method handleKeyDown', () => {
       expect(wrapper.instance().handleKeyDown).toBeDefined();
     });
-  });
+  }); // Done 
 
   describe('check state content', () => {
     const wrapper = shallow(<App />);
@@ -34,7 +34,7 @@ describe('App component', () => {
     it('contain newsInput with empty string', () => {
       expect(wrapper.state().newsInput).toEqual('');
     });
-  });
+  }); // Done
 
   describe('check callbacks', () => {
     it('save from input to state.newsInput', () => {
