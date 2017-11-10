@@ -1,6 +1,17 @@
 import React, {Component} from 'react';
 import NewsPost from './NewsPost';
 
+//Variables
+let id = 0;
+//Variables
+
+//CommonFunctions
+function getNewsId() {
+  id += 1;
+  return id;
+}
+//CommonFunctions
+
 class App extends Component {
 
   constructor(props) {
@@ -9,27 +20,34 @@ class App extends Component {
         news: [],
         newsInput: '', 
       };
+    
     // This binding is necessary to make `this` work in the callback
     this.handleChange = this.handleChange.bind(this);  
+    this.handleKeyDown = this.handleKeyDown.bind(this);  
   } //constructor
 
   handleChange(e) {
-    console.log('handleChange event =', e.target.value);
     this.setState({newsInput: e.target.value});
   } //handleChange
 
-  handleKeyDown() {
+  handleKeyDown(e) {
+    if (e.keyCode === 13) {
+      const { news, newsInput } = this.state;
+      const newNews = {id: getNewsId(), value: newsInput};
 
+      this.setState({ newsInput: '', news: [...news, newNews] });
+    }
   } //handleKeyDown
 
   render() {
-    return (
-      <div className='App'>
-        <input type='text' onChange={this.handleChange} />
-        <NewsPost />
-      </div>
-    );
+    return <div className="App">
+        <input type="text" placeholder="Add news" onChange={this.handleChange} onKeyDown={this.handleKeyDown} value={this.state.newsInput} />
+        {this.state.news.map(newsPost => (
+          <NewsPost key={newsPost.id} text={newsPost.value} />
+        ))}
+      </div>;
   }
-}
+
+} //App
 
 export default App;

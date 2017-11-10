@@ -51,7 +51,7 @@ describe('App component', () => {
       expect(wrapper.state().newsInput).toEqual('');
       expect(wrapper.state().news).toEqual([{text: 10}]);
     });
-  });
+  }); //Done
 
   describe('check Comments rendering', () => {
     it('render NewsPost component on create new post', () => {
