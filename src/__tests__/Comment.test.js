@@ -33,7 +33,7 @@ describe('Comment component', () => {
   });
 
   describe('check presence of instance methods', () => {
-    it('have onDelete method', () => {
+    it('have handleDelete method', () => {
       expect(wrapper.instance().handleDelete).toBeDefined();
     });
   });

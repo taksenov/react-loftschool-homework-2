@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import NewsPost from './NewsPost';
 
+import './App.css';
+
 //Variables
 let id = 0;
 //Variables
@@ -33,19 +35,28 @@ class App extends Component {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       const { news, newsInput } = this.state;
-      const newNews = {id: getNewsId(), value: newsInput};
+      const newNews = {id: getNewsId(), text: newsInput};
 
       this.setState({ newsInput: '', news: [...news, newNews] });
     }
   } //handleKeyDown
 
   render() {
-    return <div className="App">
-        <input type="text" placeholder="Add news" onChange={this.handleChange} onKeyDown={this.handleKeyDown} value={this.state.newsInput} />
+    return (
+      <div className="App">
+        <input
+          className='todo-input'
+          type="text" 
+          placeholder="Add news" 
+          onChange={this.handleChange} 
+          onKeyDown={this.handleKeyDown} 
+          value={this.state.newsInput} 
+        />
         {this.state.news.map(newsPost => (
-          <NewsPost key={newsPost.id} text={newsPost.value} />
+          <NewsPost key={newsPost.id} text={newsPost.text} />
         ))}
-      </div>;
+      </div>
+    );
   }
 
 } //App

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Comment from './Comment';
 
+import './NewsPost.css';
+
 //Variables
 let id = 0;
 //Variables
@@ -23,6 +25,7 @@ class NewsPost extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleChange = this.handleChange.bind(this);  
     this.handleKeyDown = this.handleKeyDown.bind(this);      
+    this.handleDelete = this.handleDelete.bind(this);      
   } //constructor
 
   handleChange(e) {
@@ -32,20 +35,42 @@ class NewsPost extends Component {
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       const { comments, commentInput } = this.state;
-      const newComment = { id: getCommentId(), value: commentInput };
+      const newComment = { id: getCommentId(), text: commentInput };
 
       this.setState({ commentInput: '', comments: [...comments, newComment] });
     }
   } //handleKeyDown
 
+
+  handleDelete(id) {
+    this.setState(state => ({
+      comments: state.comments.filter(
+        comment => id !== comment.id)
+    }));
+  }; //handleDelete
+
   render() {
-    return <div className='NewsPost_container'>
+    return (
+      <div className='news-post'>
         <p>{this.props.text}</p>
         {this.state.comments.map(comment => (
-          <Comment key={comment.id} text={comment.value} />
+          <Comment 
+            key={comment.id}
+            id={comment.id}
+            text={comment.text} 
+            onDelete={this.handleDelete}
+          />
         ))}
-        <input type='text' placeholder='Add comment' onChange={this.handleChange} onKeyDown={this.handleKeyDown} value={this.state.commentInput} />
-      </div>;
+        <input 
+          className='comment-input' 
+          type='text' 
+          placeholder='Add comment' 
+          onChange={this.handleChange} 
+          onKeyDown={this.handleKeyDown} 
+          value={this.state.commentInput} 
+        />
+      </div>
+    );
   }
 } //NewsPost;
 
