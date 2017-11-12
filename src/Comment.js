@@ -4,14 +4,17 @@ import './Comment.css';
 
 class Comment extends Component {
 
-  handleDelete = () => {};  
+  handleDelete = () => {
+    const {id, onDelete} = this.props;
+    onDelete(id);
+  };
 
   render() {
     return (
       <div className="Comment">
         <p>
           {this.props.text} 
-          <span className="delete" onClick={() => (this.props.onDelete(this.props.id))}>
+          <span className="delete" onClick={this.handleDelete}>
             X
           </span>
         </p>
